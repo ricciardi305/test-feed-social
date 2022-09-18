@@ -6,14 +6,17 @@ import { PostCard } from './components/PostCard';
 function App() {
 	return (
 		<VStack
-			bgColor={'#E9ECF5'}
+			bgColor={'#d5d8e1'}
 			w='100%'
-			h='100vh'
+			h='100%'
+			minH={'100vh'}
 			alignItems={'center'}
 			justifyContent={'flex-start'}
-			px={4}>
+			px={4}
+			pb={8}
+			fontFamily='Lato, sans-serif'>
 			<FeedHeader />
-			<PostCard />
+			<PostCard /><PostCard /><PostCard /><PostCard /><PostCard /><PostCard /><PostCard />
 			<FeedFooter />
 		</VStack>
 	);
