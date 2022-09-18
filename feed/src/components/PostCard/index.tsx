@@ -29,10 +29,10 @@ export function PostCard() {
 				mb={4}
 				className='postCard'
 				pl='20px'
+				pr={'10px'}
 				py='8px'
 				bgColor='#E8E8E8'
-				borderRadius={'8px'}
-				>
+				borderRadius={'8px'}>
 				{/* Cabeçalho do post com infos do autor e data de publi */}
 
 				<HStack justifyContent={'flex-start'} w='full' mx={4}>
@@ -41,7 +41,9 @@ export function PostCard() {
 					{/* Nome do autor e data de publi */}
 
 					<VStack alignItems={'flex-start'}>
-						<Text mb='-8px' fontWeight={"bold"}>Nome do Autor</Text>
+						<Text mb='-8px' fontWeight={'bold'}>
+							Nome do Autor
+						</Text>
 
 						<Text fontSize={11} position={'relative'}>
 							Publicado em 12 de setembro de 2022 as 16:00
@@ -57,7 +59,7 @@ export function PostCard() {
 					top='-10px'>
 					<Image src={feedLogo} boxSize='4' />
 
-					<Text fontWeight={"bold"}>Post</Text>
+					<Text fontWeight={'bold'}>Post</Text>
 				</HStack>
 				<Container
 					maxWidth='full'
