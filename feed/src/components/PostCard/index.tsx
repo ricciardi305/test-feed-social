@@ -10,6 +10,9 @@ import {
 import autor_avatar from '../../assets/avatar_default.png';
 import feedLogo from '../../assets/feed.svg';
 
+const texto =
+	'proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor';
+
 interface PostCardProps {
 	autor: string;
 	postTitle: string;
@@ -20,7 +23,16 @@ interface PostCardProps {
 }
 
 export function PostCard() {
-	const [isSmallerThan430px] = useMediaQuery(['(max-width:425px)']);
+	const [isSmallerThan375px, isSmallerThan430px, isSmallerThan768px] =
+		useMediaQuery([
+			'(max-width: 375px)',
+			'(max-width:425px)',
+			'(max-width: 768px)',
+		]);
+
+
+
+
 	return (
 		<>
 			<VStack
@@ -32,7 +44,8 @@ export function PostCard() {
 				pr={'10px'}
 				py='8px'
 				bgColor='#E8E8E8'
-				borderRadius={'8px'}>
+				borderRadius={'8px'}
+				boxShadow='lg'>
 				{/* Cabeçalho do post com infos do autor e data de publi */}
 
 				<HStack justifyContent={'flex-start'} w='full' mx={4}>
@@ -66,17 +79,9 @@ export function PostCard() {
 					centerContent
 					position={'relative'}
 					top='-16px'
-					pl={-2}>
-					proin sed libero enim sed faucibus turpis in eu mi bibendum neque
-					egestas congue quisque egestas diam in arcu cursus euismod quis
-					viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed
-					cras ornare arcu dui vivamus arcu felis bibendum ut tristique et
-					egestas quis ipsum suspendisse ultrices gravida dictum fusce ut
-					placerat orci nulla pellentesque dignissim enim sit amet venenatis
-					urna cursus eget nunc scelerisque viverra mauris in aliquam sem
-					fringilla ut morbi tincidunt augue interdum velit euismod in
-					pellentesque massa placerat duis ultricies lacus sed turpis tincidunt
-					id aliquet risus feugiat in ante metus dictum at tempor
+					pl={-2}
+					noOfLines={[10, 5]}>
+					{texto}
 				</Container>
 				{/* {props.postContentImg ? <Image src={props.postContentImg} /> : null} */}
 				{isSmallerThan430px ? (
