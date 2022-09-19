@@ -23,7 +23,7 @@ interface PostCardProps {
 }
 
 export function PostCard() {
-	const [isSmallerThan375px, isSmallerThan430px, isSmallerThan768px] =
+	let [isSmallerThan375px, isSmallerThan430px, isSmallerThan768px] =
 		useMediaQuery([
 			'(max-width: 375px)',
 			'(max-width:425px)',
