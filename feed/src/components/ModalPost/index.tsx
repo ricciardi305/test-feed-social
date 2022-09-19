@@ -1,25 +1,25 @@
 import {
+	Button,
 	FormControl,
-	FormLabel,
 	Input,
 	ModalBody,
 	ModalCloseButton,
 	ModalContent,
+	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
 	Select,
 	Textarea,
 } from '@chakra-ui/react';
 import { SyntheticEvent } from 'react';
+import { Image } from 'phosphor-react';
 
 export function ModalPost() {
-
-    const onChangeTextareaHandler = (e: SyntheticEvent) => {
-        const target = e.target as HTMLElement;
-        target.style.height = "30px"
-        target.style.height = `${target.scrollHeight}px`
-    }
-	
+	const onChangeTextareaHandler = (e: SyntheticEvent) => {
+		const target = e.target as HTMLElement;
+		target.style.height = '30px';
+		target.style.height = `${target.scrollHeight}px`;
+	};
 
 	return (
 		<>
@@ -49,16 +49,38 @@ export function ModalPost() {
 							<option>Grupo</option>
 						</Select>
 					</FormControl>
-					<FormControl mb={4}>
+					<FormControl mb={-3}>
 						<Textarea
 							placeholder='Nome do Autor'
 							height={'5em'}
-                            resize={"none"}
-                            overflow='hidden'
-                            onChange={onChangeTextareaHandler}
+							resize={'none'}
+							overflow='hidden'
+							onChange={onChangeTextareaHandler}
 						/>
 					</FormControl>
 				</ModalBody>
+				<ModalFooter mb={6}>
+					<Button
+						leftIcon={<Image size={"1.2rem"} weight="fill"/>}
+						height={'30px'}
+						fontSize='14px'
+						rounded={'20px'}
+						bgColor='#6B80BE'
+						color='#E9ECF5'
+						_hover={{ transform: 'scale(0.9)' }}>
+						IMAGEM
+					</Button>
+					<Button
+						height={'30px'}
+						fontSize='14px'
+						rounded={'20px'}
+						bgColor='#6B80BE'
+						color='#E9ECF5'
+						ml={4}
+						_hover={{ transform: 'scale(0.9)' }}>
+						PUBLICAR
+					</Button>
+				</ModalFooter>
 			</ModalContent>
 		</>
 	);
