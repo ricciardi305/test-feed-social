@@ -4,6 +4,9 @@ import 'express-async-errors';
 import cors from 'cors';
 
 import swaggerUI from 'swagger-ui-express';
+import swaggerDocs from './swagger.json';
+
+import { handleErrors } from './errors/HandleErrors';
 
 const app = express();
 
@@ -17,5 +20,7 @@ app.get('/', (req, res) => {
 		message: 'Bem vindo!',
 	});
 });
+
+app.use(handleErrors);
 
 export { app };

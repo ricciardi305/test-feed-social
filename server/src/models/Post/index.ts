@@ -33,5 +33,9 @@ export class Post {
 	@Column({ nullable: false, length: 500 })
 	postImage: string;
 
-	constructor() {}
+	constructor(name: string, postType: string, postContent: string) {
+		this.name = name;
+		this.postType = postType;
+		this.postContent = postContent;
+	}
 }
