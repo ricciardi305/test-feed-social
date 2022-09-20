@@ -14,24 +14,21 @@ const texto =
 	'proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor';
 
 interface PostCardProps {
-	autor: string;
-	postTitle: string;
+	name: string;
 	createdAt: string;
 	postType: string;
 	postContent: string;
-	postContentImg: string;
+	postImage: string;
+	id: number;
 }
 
-export function PostCard() {
+export function PostCard(props: PostCardProps) {
 	let [isSmallerThan375px, isSmallerThan430px, isSmallerThan768px] =
 		useMediaQuery([
 			'(max-width: 375px)',
 			'(max-width:425px)',
 			'(max-width: 768px)',
 		]);
-
-
-
 
 	return (
 		<>
@@ -45,7 +42,8 @@ export function PostCard() {
 				py='8px'
 				bgColor='#E8E8E8'
 				borderRadius={'8px'}
-				boxShadow='lg'>
+				boxShadow='lg'
+				id={String(props.id)}>
 				{/* Cabeçalho do post com infos do autor e data de publi */}
 
 				<HStack justifyContent={'flex-start'} w='full' mx={4}>
@@ -55,11 +53,11 @@ export function PostCard() {
 
 					<VStack alignItems={'flex-start'}>
 						<Text mb='-8px' fontWeight={'bold'}>
-							Nome do Autor
+							{props.name}
 						</Text>
 
 						<Text fontSize={11} position={'relative'}>
-							Publicado em 12 de setembro de 2022 as 16:00
+							{props.createdAt}
 						</Text>
 					</VStack>
 				</HStack>
@@ -72,7 +70,7 @@ export function PostCard() {
 					top='-10px'>
 					<Image src={feedLogo} boxSize='4' />
 
-					<Text fontWeight={'bold'}>Post</Text>
+					<Text fontWeight={'bold'}>{props.postType}</Text>
 				</HStack>
 				<Container
 					maxWidth='full'
@@ -81,14 +79,15 @@ export function PostCard() {
 					top='-16px'
 					pl={-2}
 					noOfLines={[10, 5]}>
-					{texto}
+					{props.postContent}
 				</Container>
 				{/* {props.postContentImg ? <Image src={props.postContentImg} /> : null} */}
-				{isSmallerThan430px ? (
-					<Image src={autor_avatar} boxSize='2xs' />
+				{/* {isSmallerThan430px ? (
+					<Image src={props.postImage} boxSize='2xs' />
 				) : (
-					<Image src={autor_avatar} boxSize='md' />
-				)}
+					<Image src={props.postImage} boxSize='md' />
+				)} */}
+				{props.postImage ? <Image src={props.postImage} boxSize='2xs' /> : null}
 			</VStack>
 			<br />
 		</>

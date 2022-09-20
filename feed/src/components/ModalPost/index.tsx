@@ -26,7 +26,7 @@ import { api } from '../../services/api';
 // 	post_image: FileList;
 // }
 
-export function ModalPost() {
+export function ModalPost({ loadPosts, onClose }) {
 	const [hiddenFileUploader, setHiddenFileUploader] = useState(true);
 	const [selectedFile, setSelectedFile] = useState<File>();
 
@@ -56,12 +56,11 @@ export function ModalPost() {
 	} = useForm({ resolver: yupResolver(schema) });
 
 	const handlePostCreatioForm = (postData: any) => {
-		console.log(postData);
-
 		api
 			.post('/posts', postData)
 			.then((res) => {
-				console.log(res.data);
+				loadPosts();
+				onClose();
 			})
 			.catch((err) => console.log(err));
 	};
