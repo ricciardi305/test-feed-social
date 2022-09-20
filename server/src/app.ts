@@ -7,6 +7,7 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerDocs from './swagger.json';
 
 import { handleErrors } from './errors/HandleErrors';
+import postRoutes from './routes/post.routes';
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.get('/', (req, res) => {
 		message: 'Bem vindo!',
 	});
 });
+
+app.use('/posts', postRoutes);
 
 app.use(handleErrors);
 

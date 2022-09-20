@@ -30,12 +30,8 @@ export class Post {
 	})
 	updatedAt: Date;
 
-	@Column({ nullable: false, length: 500 })
+	@Column({ length: 500 })
 	postImage: string;
 
-	constructor(name: string, postType: string, postContent: string) {
-		this.name = name;
-		this.postType = postType;
-		this.postContent = postContent;
-	}
+	constructor() {}
 }
