@@ -12,7 +12,7 @@ const devDataSourceOptions: DataSourceOptions = {
 	logging: true,
 	ssl: false,
 	synchronize: false,
-	entities: ['src/,models/*/*.ts'],
+	entities: ['src/models/*/*.ts'],
 	migrations: ['src/migrations/*.ts'],
 };
 

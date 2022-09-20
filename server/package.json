@@ -25,6 +25,6 @@
 		"build": "tsc",
 		"dev": "tsnd --exit-child src/server.ts",
 		"start": "node build/src/server.js",
-    "typeorm": "typeorm-ts-node-commonjs"
+		"typeorm": "typeorm-ts-node-commonjs"
 	}
 }

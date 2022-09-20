@@ -23,7 +23,7 @@ services:
       - db
     ports:
       - '3000:3000'
-    command: bash -c 'while !</dev/tcp/db_desafio_suflex/5432; do sleep 1; done;yarn typeorm migrtion:run -d src/data-source.ts && yarn dev'
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;yarn typeorm migration:run -d src/data-source.ts && yarn dev'
 volumes:
   pgdata:
     driver: local
