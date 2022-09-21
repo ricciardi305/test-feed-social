@@ -1,14 +1,9 @@
 import { AppDataSource } from '../data-source';
 import { AppError } from '../errors/AppErrors';
+import { IPatchPost } from '../interfaces/post.interface';
 import { Post } from '../models/Post';
 
-export interface IPatchPost {
-	id: string;
-	name?: string;
-	postType?: string;
-	postContent?: string;
-	postImage?: string;
-}
+
 
 export default class UpdatePostService {
 	async execute(props: IPatchPost): Promise<Post> {

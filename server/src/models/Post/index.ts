@@ -31,7 +31,7 @@ export class Post {
 	updatedAt: Date;
 
 	@Column({ length: 500 })
-	postImage: string;
+	postImage?: string;
 
 	constructor() {}
 }

@@ -3,18 +3,24 @@ import CreatePostService from '../services/createPost.service';
 import DeletePostService from '../services/deletePost.service';
 import { ListOnePostService } from '../services/listOnePost.service';
 import { ListPostService } from '../services/listPost.service';
-import UpdatePostService, { IPatchPost } from '../services/updatePost.service';
+import UpdatePostService from '../services/updatePost.service';
+
+import multer from 'multer';
+
+const upload = multer({ dest: 'public/uploads' });
 
 export class PostControllers {
 	static async store(req: Request, res: Response) {
 		const { name, postType, postContent } = req.body;
-
+		const postImage = req.file?.path
+		
 		const createPost = new CreatePostService();
 
 		const post = await createPost.execute({
 			name,
 			postType,
 			postContent,
+			postImage
 		});
 
 		return res.status(201).json(post);
