@@ -25,7 +25,6 @@ import autor_avatar from '../../assets/avatar_default.png';
 import feedLogo from '../../assets/feed.svg';
 import { DotsThreeOutline, Trash, FileText } from 'phosphor-react';
 import { ModalUpdate } from '../ModalUpdate';
-import { useRef } from 'react';
 
 interface PostCardProps {
 	name: string;
@@ -45,7 +44,16 @@ export function PostCard(props: PostCardProps) {
 			'(max-width: 768px)',
 		]);
 	const { onOpen, isOpen, onClose } = useDisclosure();
-	const cancelRef = useRef();
+
+	const newDate = new Date(props.createdAt);
+
+	const formatterDate = Intl.DateTimeFormat('pt-BR', {
+		dateStyle: 'long',
+	});
+
+	const formatterTime = Intl.DateTimeFormat('pt-BR', {
+		timeStyle: 'short',
+	});
 
 	return (
 		<>
@@ -75,7 +83,9 @@ export function PostCard(props: PostCardProps) {
 							</Text>
 
 							<Text fontSize={11} position={'relative'} color='#545B7D'>
-								{props.createdAt}
+								{`Publicado em ${formatterDate.format(
+									newDate
+								)} às ${formatterTime.format(newDate)}`}
 							</Text>
 						</VStack>
 					</HStack>
