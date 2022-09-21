@@ -12,15 +12,17 @@ const upload = multer({ dest: 'public/uploads' });
 export class PostControllers {
 	static async store(req: Request, res: Response) {
 		const { name, postType, postContent } = req.body;
-		const postImage = req.file?.path
-		
+		console.log(req.file);
+
+		const postImage = req.file?.path;
+
 		const createPost = new CreatePostService();
 
 		const post = await createPost.execute({
 			name,
 			postType,
 			postContent,
-			postImage
+			postImage,
 		});
 
 		return res.status(201).json(post);

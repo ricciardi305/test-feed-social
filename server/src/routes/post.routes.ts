@@ -49,8 +49,10 @@ const upload = multer({
 
 const postRoutes = Router();
 
-postRoutes.post('/', upload.single('post_image'), PostControllers.store);
+postRoutes.post('/', upload.single('postImage'), PostControllers.store);
 postRoutes.get('/', PostControllers.index);
 postRoutes.get('/:id', PostControllers.show);
+postRoutes.patch('/:id', PostControllers.update);
+postRoutes.delete('/:id', PostControllers.delete);
 
 export default postRoutes;
