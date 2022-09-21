@@ -17,6 +17,7 @@ import { Image } from 'phosphor-react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { api } from '../../services/api';
 
 // interface IPostData {
 // 	name: string;
@@ -25,7 +26,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // 	post_image: FileList;
 // }
 
-export function ModalPost() {
+export function ModalPost({ loadPosts, onClose }) {
 	const [hiddenFileUploader, setHiddenFileUploader] = useState(true);
 	const [selectedFile, setSelectedFile] = useState<File>();
 
@@ -44,8 +45,8 @@ export function ModalPost() {
 	// esquema do yup
 	const schema = yup.object().shape({
 		name: yup.string().required('Campo Obrigatório'),
-		post_type: yup.string().required('Campo Obrigatório'),
-		post_content: yup.string().required('Campo Obrigatório'),
+		postType: yup.string().required('Campo Obrigatório'),
+		postContent: yup.string().required('Campo Obrigatório'),
 	});
 
 	const {
@@ -55,7 +56,13 @@ export function ModalPost() {
 	} = useForm({ resolver: yupResolver(schema) });
 
 	const handlePostCreatioForm = (postData: any) => {
-		console.log(postData);
+		api
+			.post('/posts', postData)
+			.then((res) => {
+				loadPosts();
+				onClose();
+			})
+			.catch((err) => console.log(err));
 	};
 
 	return (
@@ -67,7 +74,6 @@ export function ModalPost() {
 			/>
 
 			<ModalContent>
-
 				<ModalHeader
 					fontFamily={'Lato, sans serif'}
 					borderLeft='4px'
@@ -81,51 +87,46 @@ export function ModalPost() {
 				<ModalCloseButton />
 
 				<ModalBody fontFamily={'Lato, sans serif'}>
-
 					<form>
-
 						<FormControl mb={4} isInvalid={!!errors.name}>
-
 							<Input placeholder='Nome do Autor' {...register('name')} />
 
 							{errors.name ? (
 								<FormErrorMessage>Email is required.</FormErrorMessage>
 							) : null}
-
 						</FormControl>
-						
-						
-						<FormControl mb={4} isInvalid={!!errors.post_type}>
+
+						<FormControl mb={4} isInvalid={!!errors.postType}>
 							<Select
 								placeholder='Selecione a categoria'
 								color='#76859A'
-								{...register('post_type')}>
+								{...register('postType')}>
 								<option value='Post'>Post</option>
 								<option value='Artigo'>Artigo</option>
 								<option value='Grupo'>Grupo</option>
 							</Select>
-							{errors.post_type ? (
+							{errors.postType ? (
 								<FormErrorMessage>Type is required</FormErrorMessage>
 							) : null}
 						</FormControl>
-						
-						<FormControl mb={4} isInvalid={!!errors.post_content}>
+
+						<FormControl mb={4} isInvalid={!!errors.postContent}>
 							<Textarea
 								placeholder='Escrever publicação'
 								height={'5em'}
 								resize={'none'}
 								overflow='hidden'
-								{...register('post_content')}
+								{...register('postContent')}
 								onChange={onChangeTextareaHandler}
 							/>
-							{errors.post_content ? (
+							{errors.postContent ? (
 								<FormErrorMessage>Content is required</FormErrorMessage>
 							) : null}
 						</FormControl>
-						
+
 						<FormControl>
 							<Input
-								{...register('post_image')}
+								{...register('postImage')}
 								type={'file'}
 								width='full'
 								pt='4px'
@@ -135,9 +136,8 @@ export function ModalPost() {
 						</FormControl>
 					</form>
 				</ModalBody>
-				
+
 				<ModalFooter mb={6} justifyContent='space-around'>
-					
 					<Button
 						leftIcon={<Image size={'1.2rem'} weight='fill' />}
 						height={'30px'}
@@ -149,7 +149,7 @@ export function ModalPost() {
 						onClick={handleFileUploader}>
 						IMAGEM
 					</Button>
-					
+
 					<Button
 						type='submit'
 						height={'30px'}

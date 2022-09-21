@@ -5,7 +5,7 @@ import { ListBullets } from 'phosphor-react';
 import { useRef } from 'react';
 import { ModalPost } from '../ModalPost';
 
-export function FeedHeader() {
+export function FeedHeader({ loadPosts }: any) {
 	const { onOpen, isOpen, onClose } = useDisclosure();
 	const initialRef = useRef(null);
 
@@ -31,7 +31,7 @@ export function FeedHeader() {
 				Criar Post
 			</Button>
 			<Modal isOpen={isOpen} onClose={onClose} motionPreset='scale'>
-				<ModalPost />
+				<ModalPost loadPosts={loadPosts} onClose={onClose}/>
 			</Modal>
 		</HStack>
 	);

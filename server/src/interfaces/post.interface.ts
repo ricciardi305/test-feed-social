@@ -1,6 +1,14 @@
-import { Post } from '../models/Post';
+export interface IPostCreation {
+	name: string;
+	postType: string;
+	postContent: string;
+	postImage?: string;
+}
 
-export type IPostCreation = Omit<
-	Post,
-	'id' | 'createdAt' | 'updatedAt' | 'postImage'
->;
+export interface IPatchPost {
+	id: string;
+	name?: string;
+	postType?: string;
+	postContent?: string;
+	postImage?: string;
+}
