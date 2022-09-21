@@ -20,8 +20,6 @@ function App() {
 
 	const loadPosts = () => {
 		api.get('/posts').then((res) => {
-			console.log(res.data);
-
 			setPosts(res.data);
 		});
 	};
@@ -41,15 +39,17 @@ function App() {
 			px={4}
 			pb={8}
 			fontFamily='Lato, sans-serif'>
-			<FeedHeader loadPosts={loadPosts}/>
+			<FeedHeader loadPosts={loadPosts} />
 			{posts.map((post) => (
 				<PostCard
+					key={post.id}
 					name={post.name}
 					id={post.id}
 					createdAt={post.createdAt}
 					postContent={post.postContent}
 					postType={post.postType}
 					postImage={post.postImage}
+					loadPosts={loadPosts}
 				/>
 			))}
 			<FeedFooter />

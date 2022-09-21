@@ -1,17 +1,31 @@
 import {
+	AlertDialog,
+	AlertDialogBody,
+	AlertDialogContent,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogOverlay,
 	Avatar,
+	Button,
 	Container,
 	HStack,
+	IconButton,
 	Image,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Modal,
 	Text,
+	useDisclosure,
 	useMediaQuery,
 	VStack,
 } from '@chakra-ui/react';
 import autor_avatar from '../../assets/avatar_default.png';
 import feedLogo from '../../assets/feed.svg';
-
-const texto =
-	'proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor';
+import { DotsThreeOutline, Trash, FileText } from 'phosphor-react';
+import { ModalUpdate } from '../ModalUpdate';
+import { useRef } from 'react';
 
 interface PostCardProps {
 	name: string;
@@ -20,15 +34,18 @@ interface PostCardProps {
 	postContent: string;
 	postImage: string;
 	id: number;
+	loadPosts: () => void;
 }
 
 export function PostCard(props: PostCardProps) {
 	let [isSmallerThan375px, isSmallerThan430px, isSmallerThan768px] =
 		useMediaQuery([
 			'(max-width: 375px)',
-			'(max-width:425px)',
+			'(max-width: 425px)',
 			'(max-width: 768px)',
 		]);
+	const { onOpen, isOpen, onClose } = useDisclosure();
+	const cancelRef = useRef();
 
 	return (
 		<>
@@ -46,20 +63,57 @@ export function PostCard(props: PostCardProps) {
 				id={String(props.id)}>
 				{/* Cabeçalho do post com infos do autor e data de publi */}
 
-				<HStack justifyContent={'flex-start'} w='full' mx={4}>
-					<Avatar src={autor_avatar} size='sm' />
+				<HStack w='full' mx={4} justify={'space-between'}>
+					<HStack>
+						<Avatar src={autor_avatar} size='sm' />
 
-					{/* Nome do autor e data de publi */}
+						{/* Nome do autor e data de publi */}
 
-					<VStack alignItems={'flex-start'}>
-						<Text mb='-8px' fontWeight={'bold'}>
-							{props.name}
-						</Text>
+						<VStack alignItems={'flex-start'}>
+							<Text mb='-8px' fontWeight={'bold'} color='#545B7D'>
+								{props.name}
+							</Text>
 
-						<Text fontSize={11} position={'relative'}>
-							{props.createdAt}
-						</Text>
-					</VStack>
+							<Text fontSize={11} position={'relative'} color='#545B7D'>
+								{props.createdAt}
+							</Text>
+						</VStack>
+					</HStack>
+					<Menu>
+						<MenuButton
+							as={IconButton}
+							aria-label='Options'
+							icon={<DotsThreeOutline />}
+							variant='outline'
+							h={6}
+							_hover={{ transform: 'scale(1.1)', borderColor: '#29325D' }}
+						/>
+						<MenuList
+							p='1'
+							minWidth='150px'
+							border='1px'
+							borderColor={'#8191C7'}
+							boxShadow='lg'>
+							<MenuItem
+								icon={<Trash size={20} weight='light' color='#8191C7' />}
+								color='#8191C7'
+								border='1px'
+								borderColor={'#8191C7'}
+								rounded='md'
+								mb='4px'
+								onClick={onOpen}>
+								Editar
+							</MenuItem>
+							<MenuItem
+								icon={<FileText size={20} weight='light' color='#8191C7' />}
+								color='#8191C7'
+								border='1px'
+								borderColor={'#8191C7'}
+								rounded='md'>
+								Deletar
+							</MenuItem>
+						</MenuList>
+					</Menu>
 				</HStack>
 
 				<HStack
@@ -70,7 +124,9 @@ export function PostCard(props: PostCardProps) {
 					top='-10px'>
 					<Image src={feedLogo} boxSize='4' />
 
-					<Text fontWeight={'bold'}>{props.postType}</Text>
+					<Text fontWeight={'bold'} color='#545B7D'>
+						{props.postType}
+					</Text>
 				</HStack>
 				<Container
 					maxWidth='full'
@@ -87,7 +143,22 @@ export function PostCard(props: PostCardProps) {
 				) : (
 					<Image src={props.postImage} boxSize='md' />
 				)} */}
-				{props.postImage ? <Image src={props.postImage} boxSize='2xs' /> : null}
+				{props.postImage ? (
+					<Image
+						src={`http://localhost:3000/${props.postImage}`}
+						boxSize='2xs'
+					/>
+				) : null}
+				<Modal isOpen={isOpen} onClose={onClose} motionPreset='scale'>
+					<ModalUpdate
+						loadPosts={props.loadPosts}
+						onClose={onClose}
+						id={String(props.id)}
+						name={props.name}
+						postType={props.postType}
+						postContent={props.postContent}
+					/>
+				</Modal>
 			</VStack>
 			<br />
 		</>

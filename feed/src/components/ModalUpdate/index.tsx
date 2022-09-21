@@ -20,7 +20,16 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { api } from '../../services/api';
 
-export function ModalPost({ loadPosts, onClose }) {
+interface UpdateModalProps {
+	loadPosts: () => void;
+	onClose: () => void;
+	id: string;
+	name: string;
+	postType: string;
+	postContent: string;
+}
+
+export function ModalUpdate(props: UpdateModalProps) {
 	const [hiddenFileUploader, setHiddenFileUploader] = useState(true);
 	const [selectedFile, setSelectedFile] = useState<File>();
 	const toast = useToast();
@@ -50,23 +59,12 @@ export function ModalPost({ loadPosts, onClose }) {
 		formState: { errors },
 	} = useForm({ resolver: yupResolver(schema) });
 
-	const handlePostCreatioForm = (postData: any) => {
-		// Reescreve a propriedade postImage que vem do form
-		// para adequar ao formato do multer no back-end
-
-		let file = postData.postImage[0];
-		postData.postImage = file;
-
+	const handlePostUpdateForm = (postData: any) => {
 		api
-			.post('/posts', postData, {
-				headers: {
-					accept: 'application/json',
-					'Content-Type': 'multipart/form-data',
-				},
-			})
+			.patch(`/posts/${props.id}`, postData)
 			.then((res) => {
-				loadPosts();
-				onClose();
+				props.loadPosts();
+				props.onClose();
 				toast({
 					title: 'Post Criado com Sucesso',
 					status: 'success',
@@ -113,7 +111,11 @@ export function ModalPost({ loadPosts, onClose }) {
 				<ModalBody fontFamily={'Lato, sans serif'}>
 					<form>
 						<FormControl mb={4} isInvalid={!!errors.name}>
-							<Input placeholder='Nome do Autor' {...register('name')} />
+							<Input
+								placeholder='Nome do Autor'
+								{...register('name')}
+								defaultValue={props.name}
+							/>
 
 							{errors.name ? (
 								<FormErrorMessage>Email is required.</FormErrorMessage>
@@ -124,7 +126,8 @@ export function ModalPost({ loadPosts, onClose }) {
 							<Select
 								placeholder='Selecione a categoria'
 								color='#76859A'
-								{...register('postType')}>
+								{...register('postType')}
+								defaultValue={props.postType}>
 								<option value='Post'>Post</option>
 								<option value='Artigo'>Artigo</option>
 								<option value='Grupo'>Grupo</option>
@@ -142,21 +145,11 @@ export function ModalPost({ loadPosts, onClose }) {
 								overflow='hidden'
 								{...register('postContent')}
 								onChange={onChangeTextareaHandler}
+								defaultValue={props.postContent}
 							/>
 							{errors.postContent ? (
 								<FormErrorMessage>Content is required</FormErrorMessage>
 							) : null}
-						</FormControl>
-
-						<FormControl>
-							<Input
-								{...register('postImage')}
-								type={'file'}
-								width='full'
-								pt='4px'
-								hidden={hiddenFileUploader}
-								onChange={(e) => setSelectedFile(e.target.files[0])}
-							/>
 						</FormControl>
 					</form>
 				</ModalBody>
@@ -170,7 +163,8 @@ export function ModalPost({ loadPosts, onClose }) {
 						bgColor='#6B80BE'
 						color='#E9ECF5'
 						_hover={{ transform: 'scale(0.9)' }}
-						onClick={handleFileUploader}>
+						onClick={handleFileUploader}
+						disabled>
 						IMAGEM
 					</Button>
 
@@ -182,9 +176,9 @@ export function ModalPost({ loadPosts, onClose }) {
 						bgColor='#6B80BE'
 						color='#E9ECF5'
 						ml={4}
-						onClick={handleSubmit(handlePostCreatioForm)}
+						onClick={handleSubmit(handlePostUpdateForm)}
 						_hover={{ transform: 'scale(0.9)' }}>
-						PUBLICAR
+						Salvar Mudança
 					</Button>
 				</ModalFooter>
 			</ModalContent>
