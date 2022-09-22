@@ -1,0 +1,192 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Teste LinkLei API",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000",
+			"description": "Generated server"
+		}
+	],
+	"paths": {
+		"/posts": {
+			"post": {
+				"summary": "Publicar posts",
+				"description": "Essa rota será responsável pela publicação de novos posts",
+				"tags": ["Posts"],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/Posts"
+							},
+							"examples": {
+								"post": {
+									"value": {
+										"name": "Autor",
+										"postType": "Artigo",
+										"postContent": "Um artigo qualquer",
+										"postImage": "Um arquivo de imagem com as extensões .jpg ou .png"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Created Post",
+						"content": {
+							"multipart/form-data": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/PostsResponse"
+								}
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"summary": "Listagem de posts publicados",
+				"tags": ["Posts"],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"multipart/form-data": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/PostsResponse"
+									}
+								}
+							}
+						}
+					}
+				},
+				"examples": {
+					"posts": {
+						"values": {
+							"id": 1,
+							"name": "Autor",
+							"postType": "Artigo",
+							"postContent": "Um artigo qualquer",
+							"postImage": "Path da imagem apartir do diretório public/uploads/...",
+							"createdAt": "Data",
+							"updatedAt": "Data"
+						}
+					}
+				}
+			}
+		},
+		"/posts/{id}": {
+			"get": {
+				"summary": "Recupara um post",
+				"description": "Recupera um post a partir do id",
+				"tags": ["Posts"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Id do post"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/PostsResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Post Not found"
+					}
+				}
+			},
+			"patch": {
+				"summary": "Modificar um post",
+				"description": "Modificar um post a partir do id",
+				"tags": ["Posts"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Id do post"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/PostsResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Post Not found"
+					}
+				}
+			},
+			"delete": {
+				"summary": "Remover um post",
+				"description": "Remover um post a partir do id",
+				"tags": ["Posts"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Id do post"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Ok"
+					},
+					"404": {
+						"description": "Post Not found"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Posts": {
+				"type": "object",
+				"properties": {
+					"name": { "type": "string" },
+					"postType": { "type": "string" },
+					"postContent": { "type": "string" },
+					"postImage": { "type": "string", "format": "binary" }
+				}
+			},
+			"PostsResponse": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "number" },
+					"name": { "type": "string" },
+					"postType": { "type": "string" },
+					"postContent": { "type": "string" },
+					"postImage": { "type": "string" },
+					"createdAt": { "type": "string" },
+					"updatedAt": { "type": "string" }
+				}
+			}
+		}
+	}
+}
