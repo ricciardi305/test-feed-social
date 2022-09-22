@@ -121,7 +121,7 @@ export function ModalPost({ loadPosts, onClose }: IModalUpdate) {
 							<Input placeholder='Nome do Autor' {...register('name')} />
 
 							{errors.name ? (
-								<FormErrorMessage>Email is required.</FormErrorMessage>
+								<FormErrorMessage>Name is required.</FormErrorMessage>
 							) : null}
 						</FormControl>
 

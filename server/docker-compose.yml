@@ -11,7 +11,7 @@ services:
     volumes:
       - pgdata:/data/postgres
     ports:
-      - '5433:5432'
+      - '5434:5432'
 
   api:
     container_name: api_feed_link
@@ -22,7 +22,7 @@ services:
     depends_on:
       - db
     ports:
-      - '3000:3000'
+      - '3001:3000'
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;yarn typeorm migration:run -d src/data-source.ts && yarn dev'
 volumes:
   pgdata:

@@ -101,7 +101,7 @@ export function ModalUpdate(props: UpdateModalProps) {
 					borderLeft='4px'
 					borderColor={'#6B80BE'}
 					roundedTopLeft='md'>
-					Criar Post
+					Editar Post
 				</ModalHeader>
 
 				<hr />
