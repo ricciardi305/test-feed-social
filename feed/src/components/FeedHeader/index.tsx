@@ -2,12 +2,10 @@ import { Button } from '@chakra-ui/button';
 import { HStack } from '@chakra-ui/layout';
 import { Modal, useDisclosure } from '@chakra-ui/react';
 import { ListBullets } from 'phosphor-react';
-import { useRef } from 'react';
 import { ModalPost } from '../ModalPost';
 
 export function FeedHeader({ loadPosts }: any) {
 	const { onOpen, isOpen, onClose } = useDisclosure();
-	const initialRef = useRef(null);
 
 	return (
 		<HStack
@@ -31,7 +29,7 @@ export function FeedHeader({ loadPosts }: any) {
 				Criar Post
 			</Button>
 			<Modal isOpen={isOpen} onClose={onClose} motionPreset='scale'>
-				<ModalPost loadPosts={loadPosts} onClose={onClose}/>
+				<ModalPost loadPosts={loadPosts} onClose={onClose} />
 			</Modal>
 		</HStack>
 	);

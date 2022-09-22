@@ -15,6 +15,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
 app.use('/public/uploads', express.static('public/uploads'));
 
 app.get('/', (req, res) => {
