@@ -20,7 +20,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { api } from '../../services/api';
 
-export function ModalPost({ loadPosts, onClose }) {
+interface IModalUpdate {
+	loadPosts: () => void;
+	onClose: () => void;
+}
+
+export function ModalPost({ loadPosts, onClose }: IModalUpdate) {
 	const [hiddenFileUploader, setHiddenFileUploader] = useState(true);
 	const [selectedFile, setSelectedFile] = useState<File>();
 	const toast = useToast();
