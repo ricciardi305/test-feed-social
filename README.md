@@ -106,14 +106,68 @@ $ git clone git@github.com:ricciardi305/teste-linklei.git
 # entre na raiz do projeto clonado
 $ cd tests-linklei
 
-# entre na pasta do front-end
-$ cd feed
-
-# instale as dependências
-
 # Gere o container no docker (se você ainda não tiver a imagens do node e postgres, o docker pode demorar um pouco para inicializar)
 $ sudo docker compose up --build
 
-#
+# Em outra guia do terminal acesse o diretório do front-end
+$ cd feed
 
+# instale as dependências
+$ yarn install
+
+# inicie a aplicação
+$ yarn dev
+
+# Pronto! A aplicação está rodando nas portas:
+# Bavkend -> 3000
+# Banco de dados -> 5432
+# Frontend -> 5173, o Vite pode vir a variar as portas, cheque no terminal.
 ```
+
+<br/><br/>
+
+## <strong>Tecnologias</strong>
+
+<br/>
+
+### <strong>Principais tecnologias utilizadas - Backend</strong>
+
+<br/>
+
+- [x] [TypeScript](https://www.typescriptlang.org/)<br/>
+- [x] [Node](https://nodejs.org/)<br/>
+- [x] [Express](https://expressjs.com/pt-br/)<br/>
+- [x] [TypeORM](https://typeorm.io/)<br/>
+
+### <strong>Principais tecnologias utilizadas - Backend</strong>
+
+<br/>
+
+- [x] [Vite](https://vitejs.dev/)<br/>
+- [x] [ChakraUI](https://chakra-ui.com/)<br/>
+- [x] [Axios](https://axios-http.com/ptbr/)<br/>
+- [x] [React-hook-form](https://react-hook-form.com/)<br/>
+
+<br/>
+
+
+<strong>ENDPOINTS BACKEND:</strong> Na raiz desse projeto existe um arquivo `insomnia.json`, nele encontra-se todos os endpoints da aplicação e exmplos de requisições e respostas.
+<br/>
+
+# Licença
+
+Este projeto está sob a licença MIT License - Veja o arquivo [License](LICENSE) para mais detalhes.
+
+# Autor
+
+<a href="https://github.com/ricciardi305">
+    <img src="https://avatars.githubusercontent.com/u/81863575?v=4&s=150" alt=""/>
+    <br />
+    <sub style="font-size: 16px"><b>Rafael Ricciardi</b></sub>
+</a>
+
+> Feito com ❤️ por Rafael Ricciardi 👋🏽 Entre em contato!
+
+[![Linkedin Badge](https://img.shields.io/badge/-Rafael_Ricciardi-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/tgmarinho/)](https://www.linkedin.com/in/rafaelricciardi/)
+[![Gmail Badge](https://img.shields.io/badge/-ricciardi.rafael1997@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:tgmarinho@gmail.com)](mailto:ricciardi.rafael1997@gmail.com)
+[![GitHub Badge](https://img.shields.io/badge/-Rafael_Ricciardi-100000?style=flat-square&logo=github&logoColor=white&link=https://github.com/ricciardi305)](https://github.com/ricciardi305)
