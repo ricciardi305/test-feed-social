@@ -25,6 +25,8 @@ import autor_avatar from '../../assets/avatar_default.png';
 import feedLogo from '../../assets/feed.svg';
 import { DotsThreeOutline, Trash, FileText } from 'phosphor-react';
 import { ModalUpdate } from '../ModalUpdate';
+import { useState } from 'react';
+import { DeleteModal } from '../ModalDelete';
 
 interface PostCardProps {
 	name: string;
@@ -44,6 +46,16 @@ export function PostCard(props: PostCardProps) {
 			'(max-width: 768px)',
 		]);
 	const { onOpen, isOpen, onClose } = useDisclosure();
+	const [show, setShow] = useState(false);
+
+	const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+	const handleOpenDeleteModal = () => {
+		setOpenDeleteModal(true);
+	};
+	const handleCloseDeleteModal = () => {
+		setOpenDeleteModal(false);
+	};
 
 	const newDate = new Date(props.createdAt);
 
@@ -78,17 +90,18 @@ export function PostCard(props: PostCardProps) {
 						{/* Nome do autor e data de publi */}
 
 						<VStack alignItems={'flex-start'}>
-							<Text mb='-8px' fontWeight={'bold'} color='#545B7D'>
+							<Text mb='-8px' fontWeight={'bold'}>
 								{props.name}
 							</Text>
 
-							<Text fontSize={11} position={'relative'} color='#545B7D'>
+							<Text fontSize={11} position={'relative'}>
 								{`Publicado em ${formatterDate.format(
 									newDate
 								)} às ${formatterTime.format(newDate)}`}
 							</Text>
 						</VStack>
 					</HStack>
+					{/* DropDown do menu de opções para editar e deletar posts */}
 					<Menu>
 						<MenuButton
 							as={IconButton}
@@ -119,13 +132,14 @@ export function PostCard(props: PostCardProps) {
 								color='#8191C7'
 								border='1px'
 								borderColor={'#8191C7'}
-								rounded='md'>
+								rounded='md'
+								onClick={handleOpenDeleteModal}>
 								Deletar
 							</MenuItem>
 						</MenuList>
 					</Menu>
 				</HStack>
-
+				{/* Corpo do text começando com o tipo de publicação */}
 				<HStack
 					h={10}
 					justify='flex-start'
@@ -134,31 +148,43 @@ export function PostCard(props: PostCardProps) {
 					top='-10px'>
 					<Image src={feedLogo} boxSize='4' />
 
-					<Text fontWeight={'bold'} color='#545B7D'>
-						{props.postType}
-					</Text>
+					<Text fontWeight={'bold'}>{props.postType}</Text>
 				</HStack>
-				<Container
-					maxWidth='full'
-					centerContent
+				{/* Conteúdo da publicação */}
+				<Text
+					width={'full'}
+					textAlign={'left'}
 					position={'relative'}
 					top='-16px'
 					pl={-2}
-					noOfLines={[10, 5]}>
-					{props.postContent}
-				</Container>
-				{/* {props.postContentImg ? <Image src={props.postContentImg} /> : null} */}
-				{/* {isSmallerThan430px ? (
-					<Image src={props.postImage} boxSize='2xs' />
-				) : (
-					<Image src={props.postImage} boxSize='md' />
-				)} */}
+					color='blackAlpha.900'>
+					{/* Caso o texto tenha mais de 500 caracteres, será mostrado
+							apenas os 500 primeiros caracteres */}
+					{show ? props.postContent : props.postContent.substring(0, 500)}
+				</Text>
+				{/* Botão para mostrar e esconder o texto, só aparece quando o texto tem 
+					mais de 500 caracteres de comprimento */}
+				{props.postContent.length > 500 ? (
+					<Button
+						onClick={() => setShow(!show)}
+						alignSelf='flex-start'
+						bgColor={'transparent'}
+						_hover={{ bgColor: 'transparent' }}
+						pl='0'
+						bottom='32px'>
+						{show ? 'Leia Menos' : 'Leia Mais...'}
+					</Button>
+				) : null}
+
+				{/* Imagem do poste (opcional). todas as imagens estão disponível ao público
+					em http://localhost:3000/path-da-imagem.extensão-da-imagem */}
 				{props.postImage ? (
 					<Image
 						src={`http://localhost:3000/${props.postImage}`}
-						boxSize='2xs'
+						boxSize='auto'
 					/>
 				) : null}
+
 				<Modal isOpen={isOpen} onClose={onClose} motionPreset='scale'>
 					<ModalUpdate
 						loadPosts={props.loadPosts}
@@ -167,6 +193,13 @@ export function PostCard(props: PostCardProps) {
 						name={props.name}
 						postType={props.postType}
 						postContent={props.postContent}
+					/>
+				</Modal>
+				<Modal isOpen={openDeleteModal} onClose={handleCloseDeleteModal}>
+					<DeleteModal
+						loadPosts={props.loadPosts}
+						handleCloseDeleteModal={handleCloseDeleteModal}
+						id={String(props.id)}
 					/>
 				</Modal>
 			</VStack>

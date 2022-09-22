@@ -38,7 +38,8 @@ function App() {
 			justifyContent={'flex-start'}
 			px={4}
 			pb={8}
-			fontFamily='Lato, sans-serif'>
+			fontFamily='Lato, sans-serif'
+			color='#545B7D'>
 			<FeedHeader loadPosts={loadPosts} />
 			{posts.map((post) => (
 				<PostCard
@@ -50,6 +51,7 @@ function App() {
 					postType={post.postType}
 					postImage={post.postImage}
 					loadPosts={loadPosts}
+					
 				/>
 			))}
 			<FeedFooter />
