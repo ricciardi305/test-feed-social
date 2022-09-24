@@ -61,7 +61,7 @@ export function ModalUpdate(props: UpdateModalProps) {
 
 	const handlePostUpdateForm = (postData: any) => {
 		api
-			.patch(`/posts/${props.id}`, postData)
+			.put(`/posts/${props.id}`, postData)
 			.then((res) => {
 				props.loadPosts();
 				props.onClose();

@@ -25,7 +25,7 @@ class PostController extends Controller
             $requestImage = $request->postImage;
             $extension = $requestImage->extension();
             $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-            $request->postImage->move(public_path('images'), $imageName);
+            $request->postImage->move(storage_path('app/public/images'), $imageName);
             $post->postImage = $imageName;
         }
 
