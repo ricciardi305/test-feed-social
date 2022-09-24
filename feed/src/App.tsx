@@ -20,9 +20,7 @@ function App() {
 
 	const loadPosts = () => {
 		api.get('/posts').then((res) => {
-			res.data.reverse(cd)
-			console.log(typeof res.data);
-			
+			res.data.reverse();
 			setPosts(res.data);
 		});
 	};
@@ -54,7 +52,6 @@ function App() {
 					postType={post.postType}
 					postImage={post.postImage}
 					loadPosts={loadPosts}
-					
 				/>
 			))}
 			<FeedFooter />
