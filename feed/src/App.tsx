@@ -20,7 +20,8 @@ function App() {
 
 	const loadPosts = () => {
 		api.get('/posts').then((res) => {
-			console.log(res.data);
+			res.data.reverse(cd)
+			console.log(typeof res.data);
 			
 			setPosts(res.data);
 		});
