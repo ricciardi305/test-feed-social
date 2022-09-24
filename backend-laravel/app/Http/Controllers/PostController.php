@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
     public function getAllPosts()
     {
         $posts = Post::get()->toJson(JSON_PRETTY_PRINT);
@@ -28,7 +29,7 @@ class PostController extends Controller
                 $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
                 $request->postImage->move(storage_path('app/public/images'), $imageName);
                 $post->postImage = $imageName;
-                // $post->save();
+                $post->save();
 
                 return response()->json($post, 201);
             } else {

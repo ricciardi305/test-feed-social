@@ -1,66 +1,165 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center"><strong>BackEnd Desafio Técnico LinkLei</strong></h1>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<br/>
+<h3 align="center">Esta é a documentação da api do desafio full-stack da LinkLei, utilizando php 8 e Laravel 9</h3>
 
-## About Laravel
+<br/>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Listagem (Get)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Lista todos os posts cadastrados no banco de dados utilizando o endpoint:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
+Get /posts - FORMATO DA RESPOSTA - status 200
+```
 
-## Learning Laravel
+```json
+[
+    {
+        "id": 2,
+        "name": "Rafael Mendes",
+        "postType": "Grupo",
+        "postContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "created_at": "2022-09-24T16:18:30.000000Z",
+        "updated_at": "2022-09-24T17:54:38.000000Z",
+        "postImage": ""
+    },
+    {
+        "id": 3,
+        "name": "Rafael Ricciardi",
+        "postType": "Grupo",
+        "postContent": "Lorem ipsum dolor ....",
+        "created_at": "2022-09-24T16:18:30.000000Z",
+        "updated_at": "2022-09-24T16:49:59.000000Z",
+        "postImage": ""
+    },
+    {
+        "id": 4,
+        "name": "Rafael",
+        "postType": "Artigo",
+        "postContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "created_at": "2022-09-24T16:18:30.000000Z",
+        "updated_at": "2022-09-24T16:47:11.000000Z",
+        "postImage": ""
+    },
+    {
+        "id": 5,
+        "name": "Rafael Mendes",
+        "postType": "Grupo",
+        "postContent": "Lorem ipsum dolor ....",
+        "created_at": "2022-09-24T16:18:31.000000Z",
+        "updated_at": "2022-09-24T16:18:31.000000Z",
+        "postImage": ""
+    }
+]
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+</br>
+Acessa um post específico a partir do id utilizando o endpoint:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```
+Get /posts/{id} - FORMATO DA RESPOSTA - status 200
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```json
+[
+    {
+        "id": 1,
+        "name": "Rafael Mendes",
+        "postType": "Grupo",
+        "postContent": "Lorem ipsum dolor ....",
+        "created_at": "2022-09-24T16:14:26.000000Z",
+        "updated_at": "2022-09-24T16:14:26.000000Z"
+    }
+]
+```
 
-## Laravel Sponsors
+## Rotas de criação (Post)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Cadastra uma nova publicação:
 
-### Premium Partners
+```
+Post /post - FORMATO DA REQUISIÇÃO - multipart/form-data
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```json
+{
+    "name": "Rafael Mendes",
+    "postType": "Grupo",
+    "postContent": "Lorem ipsum dolor ....",
+    "postImage": Arquivo de imagem com extençoes jpg ou png
+}
+```
 
-## Contributing
+Caso tudo dê certo, a resposta será assim:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+Post /posts - FORMATO DA RESPOSTA - status 201
+```
 
-## Code of Conduct
+```json
+{
+    "name": "Rafael Mendes",
+    "postType": "Grupo",
+    "postContent": "Lorem ipsum dolor ....",
+    "postImage": "850c2648ab1fe92e4edee08f22e0a37a.jpg",
+    "updated_at": "2022-09-24T22:08:20.000000Z",
+    "created_at": "2022-09-24T22:08:20.000000Z",
+    "id": 31
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<img src="./github/server/Captura%20de%20tela%20de%202022-09-22%2011-44-38.png"/>
+</br>
 
-## Security Vulnerabilities
+## rota de edição (Put)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Pode editar o conteúdo, nome do autor e tipo de publicação (funcionalidade de alterar imagem ainda não implementada)
 
-## License
+```
+Put /posts/{id} - FORMATO DA REQUISIÇÃO
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```json
+{
+    "name": "Rafael Ricciardi",
+    "postType": "Artigo",
+    "postContent": "Artigo editado"
+}
+```
+
+Caso tudo dê certo, a resposta será assim:
+
+```
+Put /posts/{id} - FORMATO DA RESPOSTA - status 209
+```
+
+```json
+{
+    "message": "Post successfully updated"
+}
+```
+
+## Excluir publicação (Delete)
+
+Pode pode excluir uma publicação
+
+```
+Delete /posts/{id} - FORMATO DA REQUISIÇÃO
+```
+
+```json
+Sem corpo de requisição
+```
+
+Caso tudo dê certo, a resposta será assim:
+
+```
+Delete /posts/{id} - FORMATO DA RESPOSTA - status 209
+```
+
+```json
+{
+    "message": "Post successfully deleted"
+}
+```
