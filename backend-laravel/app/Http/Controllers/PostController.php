@@ -23,15 +23,21 @@ class PostController extends Controller
 
         if ($request->hasFile('postImage') && $request->file('postImage')->isValid()) {
             $requestImage = $request->postImage;
-            $extension = $requestImage->extension();
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-            $request->postImage->move(storage_path('app/public/images'), $imageName);
-            $post->postImage = $imageName;
+            if($requestImage->getMimetype() === 'image/jpeg' || $requestImage->getMimetype() === 'image/png') {
+                $extension = $requestImage->extension();
+                $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+                $request->postImage->move(storage_path('app/public/images'), $imageName);
+                $post->postImage = $imageName;
+                // $post->save();
+
+                return response()->json($post, 201);
+            } else {
+                return response()->json([
+                    'message' => 'Image extension not supported'
+                ], 400);
+            }
         }
 
-        $post->save();
-
-        return response()->json($post, 201);
     }
 
     public function getPost($id)
