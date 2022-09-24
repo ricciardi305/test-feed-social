@@ -6,7 +6,7 @@ import { PostCard } from './components/PostCard';
 import { api } from './services/api';
 
 interface PostProps {
-	createdAt: string;
+	created_at: string;
 	id: number;
 	name: string;
 	postContent: string;
@@ -20,6 +20,8 @@ function App() {
 
 	const loadPosts = () => {
 		api.get('/posts').then((res) => {
+			console.log(res.data);
+			
 			setPosts(res.data);
 		});
 	};
@@ -46,7 +48,7 @@ function App() {
 					key={post.id}
 					name={post.name}
 					id={post.id}
-					createdAt={post.createdAt}
+					created_at={post.created_at}
 					postContent={post.postContent}
 					postType={post.postType}
 					postImage={post.postImage}

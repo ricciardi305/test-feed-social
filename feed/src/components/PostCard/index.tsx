@@ -1,13 +1,6 @@
 import {
-	AlertDialog,
-	AlertDialogBody,
-	AlertDialogContent,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogOverlay,
 	Avatar,
 	Button,
-	Container,
 	HStack,
 	IconButton,
 	Image,
@@ -30,7 +23,7 @@ import { DeleteModal } from '../ModalDelete';
 
 interface PostCardProps {
 	name: string;
-	createdAt: string;
+	created_at: string;
 	postType: string;
 	postContent: string;
 	postImage: string;
@@ -57,7 +50,7 @@ export function PostCard(props: PostCardProps) {
 		setOpenDeleteModal(false);
 	};
 
-	const newDate = new Date(props.createdAt);
+	const newDate = new Date(props.created_at);
 
 	const formatterDate = Intl.DateTimeFormat('pt-BR', {
 		dateStyle: 'long',
@@ -180,7 +173,7 @@ export function PostCard(props: PostCardProps) {
 					em http://localhost:3000/path-da-imagem.extensão-da-imagem */}
 				{props.postImage ? (
 					<Image
-						src={`http://localhost:3000/${props.postImage}`}
+						src={`http://localhost:8000/storage/images/${props.postImage}`}
 						boxSize='auto'
 					/>
 				) : null}
