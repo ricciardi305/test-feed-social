@@ -18,8 +18,17 @@ class PostController extends Controller
 
         $post = new Post();
         $post->name = $request->name;
-        $post->posttype = $request->postType;
+        $post->postType = $request->postType;
         $post->postContent = $request->postContent;
+
+        if ($request->hasFile('postImage') && $request->file('postImage')->isValid()) {
+            $requestImage = $request->postImage;
+            $extension = $requestImage->extension();
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            $request->postImage->move(public_path('images'), $imageName);
+            $post->postImage = $imageName;
+        }
+
         $post->save();
 
         return response()->json($post, 201);
