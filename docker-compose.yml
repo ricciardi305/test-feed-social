@@ -12,18 +12,42 @@ services:
       - pgdata:/data/postgres
     ports:
       - '5434:5432'
+    tty: true
+    networks:
+      - apiwebnetwork
 
   api:
-    container_name: api_feed_link
-    build: .
+    container_name: api_desafio_linklei
+    build: ./server
     restart: always
     volumes:
-      - .:/app
+      - ./server:/app
     depends_on:
       - db
     ports:
       - '3001:3000'
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;yarn typeorm migration:run -d src/data-source.ts && yarn dev'
+    networks:
+      - apiwebnetwork
+
+  front-end:
+    container_name: feed
+    build: ./feed
+    ports:
+      - 5173:5173
+    restart: always
+    volumes:
+      - ./feed:/feed
+      - /feed/node_modules
+    links:
+      - api
+    networks:
+      - apiwebnetwork
+
+networks:
+  apiwebnetwork:
+    driver: bridge
+
 volumes:
   pgdata:
     driver: local
