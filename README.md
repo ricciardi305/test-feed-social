@@ -91,11 +91,14 @@
 Antes de começar você vai precisar ter instalados em sua máquiana as seguintes ferramentas:<br/>
 
 - [x] [Git](https://git-scm.com)<br/>
-- [x] [Docker](https://docs.docker.com/engine/install/)<br/>
-- [x] [Docker Compose](https://docs.docker.com/compose/install/)<br/>
+- [x] [php](https://www.php.net/)<br/>
+- [x] [composer](https://getcomposer.org/)<br/>
+- [x] [MySQL](https://www.mysql.com/)<br/>
 - [x] [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable)<br/>
 
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+<strong>Antes de iniciar a aplicação seguindo o passo a passo a diante, você deve renomear o arquivo .env.example para .env no diretório backend-laravel e adiconar as informações do banco de dados, usuário e senha!</strong>
 
 ### <strong>Como rodar a aplicação</strong>
 
@@ -106,8 +109,26 @@ $ git clone git@github.com:ricciardi305/teste-linklei.git
 # entre na raiz do projeto clonado
 $ cd tests-linklei
 
-# Gere o container no docker (se você ainda não tiver a imagens do node e postgres, o docker pode demorar um pouco para inicializar)
-$ sudo docker compose up --build
+# acesse o diretório do backend
+$ cd backend-laravel
+
+# instale as dependências
+$ composer install
+
+# inicie a aplicação
+$ php artisan serve
+
+# Crie o banco de dados, caso ainda não exista
+$ mysql -uroot -p
+
+CREATE DATABASE `api-project`;
+
+exit
+
+# Rode as migrações
+$ php artisan migrate
+
+# -------------------------------------------------------------------
 
 # Em outra guia do terminal acesse o diretório do front-end
 $ cd feed
@@ -119,8 +140,8 @@ $ yarn install
 $ yarn dev
 
 # Pronto! A aplicação está rodando nas portas:
-# Bavkend -> 3000
-# Banco de dados -> 5432
+# Backend -> 8000
+# Banco de dados -> 3306
 # Frontend -> 5173, o Vite pode vir a variar as portas, cheque no terminal.
 ```
 
@@ -134,31 +155,39 @@ $ yarn dev
 
 <br/>
 
-- [x] [TypeScript](https://www.typescriptlang.org/)<br/>
-- [x] [Node](https://nodejs.org/)<br/>
-- [x] [Express](https://expressjs.com/pt-br/)<br/>
+- [x] [php](https://www.php.net/)<br/>
+- [x] [Laravel](https://laravel.com/)<br/>
+- [x] [MySQL](https://www.mysql.com/)<br/>
 - [x] [TypeORM](https://typeorm.io/)<br/>
 
-### <strong>Principais tecnologias utilizadas - Backend</strong>
+Para mais detalhes dessas e outras tecnologias utilizadas no backend [composer.json](backend-laravel/composer.json)
+
+### <strong>Principais tecnologias utilizadas - Frontend</strong>
 
 <br/>
 
+- [x] [React](https://pt-br.reactjs.org/)<br/>
 - [x] [Vite](https://vitejs.dev/)<br/>
 - [x] [ChakraUI](https://chakra-ui.com/)<br/>
 - [x] [Axios](https://axios-http.com/ptbr/)<br/>
 - [x] [React-hook-form](https://react-hook-form.com/)<br/>
 
+Para mais detalhes dessas e outras tecnologias utilizadas no frontend [package.json](feed/package.json)
+
 <br/>
 
-
-<strong>ENDPOINTS BACKEND:</strong> Na raiz desse projeto existe um arquivo `insomnia.json`, nele encontra-se todos os endpoints da aplicação e exmplos de requisições e respostas.
+<strong>ENDPOINTS BACKEND:</strong> Na raiz desse projeto existe um arquivo [insomnia.json](insomnia.json), nele encontra-se todos os endpoints da aplicação e exmplos de requisições e respostas.
+<br/>
 <br/>
 
 # Licença
 
 Este projeto está sob a licença MIT License - Veja o arquivo [License](LICENSE) para mais detalhes.
+<br/>
+<br/>
 
 # Autor
+<br/>
 
 <a href="https://github.com/ricciardi305">
     <img src="https://avatars.githubusercontent.com/u/81863575?v=4&s=150" alt=""/>
