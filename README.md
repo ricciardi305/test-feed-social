@@ -1,4 +1,4 @@
-<h1 align="center"><strong>Desafio Técnico LinkLei</strong></h1>
+<h1 align="center"><strong>Desafio Feed Social</strong></h1>
 
 <br/>
 <h3 align="center">O desafio proposto consiste em um projeto Fullstack de um feed simulando uma rede social, onde é possível o usuário cadastrar novas publicações, edita e deletar publicações já existentes. </h3>
@@ -103,10 +103,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ```bash
 # Clone este repositório
-$ git clone git@github.com:ricciardi305/teste-linklei.git
+$ git clone git@github.com:ricciardi305/test-feed-social.git
 
 # entre na raiz do projeto clonado
-$ cd teste-linklei
+$ cd test-feed-social
 
 # Gere o container no docker (se você ainda não tiver as imagens do node e postgres, o docker pode demorar um pouco para inicializar)
 $ sudo docker compose up --build
