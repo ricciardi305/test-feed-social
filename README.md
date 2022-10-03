@@ -91,14 +91,13 @@
 Antes de começar você vai precisar ter instalados em sua máquiana as seguintes ferramentas:<br/>
 
 - [x] [Git](https://git-scm.com)<br/>
-- [x] [php](https://www.php.net/)<br/>
-- [x] [composer](https://getcomposer.org/)<br/>
-- [x] [MySQL](https://www.mysql.com/)<br/>
+- [x] [Docker](https://docs.docker.com/get-docker/)<br/>
+- [x] [Docker Compose](https://docs.docker.com/compose/gettingstarted/)<br/>
 - [x] [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable)<br/>
 
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-<strong>Antes de iniciar a aplicação seguindo o passo a passo a diante, você deve renomear o arquivo .env.example para .env no diretório backend-laravel e adiconar as informações do banco de dados, usuário e senha!</strong>
+<strong>Antes de iniciar a aplicação seguindo o passo a passo a diante, você deve renomear o arquivo .env.example para .env no diretório server</strong>
 
 ### <strong>Como rodar a aplicação</strong>
 
@@ -107,28 +106,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 $ git clone git@github.com:ricciardi305/teste-linklei.git
 
 # entre na raiz do projeto clonado
-$ cd tests-linklei
+$ cd teste-linklei
 
-# acesse o diretório do backend
-$ cd backend-laravel
-
-# instale as dependências
-$ composer install
-
-# inicie a aplicação
-$ php artisan serve
-
-# Crie o banco de dados, caso ainda não exista
-$ mysql -uroot -p
-
-CREATE DATABASE `api-project`;
-
-exit
-
-# Rode as migrações
-$ php artisan migrate
-
-# -------------------------------------------------------------------
+# Gere o container no docker (se você ainda não tiver as imagens do node e postgres, o docker pode demorar um pouco para inicializar)
+$ sudo docker compose up --build
 
 # Em outra guia do terminal acesse o diretório do front-end
 $ cd feed
@@ -140,9 +121,9 @@ $ yarn install
 $ yarn dev
 
 # Pronto! A aplicação está rodando nas portas:
-# Backend -> 8000
-# Banco de dados -> 3306
-# Frontend -> 5173, o Vite pode vir a variar as portas, cheque no terminal.
+# Backend -> 3001
+# Banco de dados -> 5432
+# Frontend -> 5173, o Vite pode variar as portas, cheque no terminal.
 ```
 
 <br/><br/>
@@ -155,12 +136,12 @@ $ yarn dev
 
 <br/>
 
-- [x] [php](https://www.php.net/)<br/>
-- [x] [Laravel](https://laravel.com/)<br/>
-- [x] [MySQL](https://www.mysql.com/)<br/>
+- [x] [Node](https://nodejs.org/pt-br/)<br/>
+- [x] [TypeScript](https://www.typescriptlang.org/)<br/>
+- [x] [Postgres](https://www.postgresql.org/)<br/>
 - [x] [TypeORM](https://typeorm.io/)<br/>
 
-Para mais detalhes dessas e outras tecnologias utilizadas no backend [composer.json](backend-laravel/composer.json)
+Para mais detalhes dessas e outras tecnologias utilizadas no backend [package.json](server/package.json)
 
 ### <strong>Principais tecnologias utilizadas - Frontend</strong>
 
@@ -187,6 +168,7 @@ Este projeto está sob a licença MIT License - Veja o arquivo [License](LICENSE
 <br/>
 
 # Autor
+
 <br/>
 
 <a href="https://github.com/ricciardi305">
@@ -194,6 +176,8 @@ Este projeto está sob a licença MIT License - Veja o arquivo [License](LICENSE
     <br />
     <sub style="font-size: 16px"><b>Rafael Ricciardi</b></sub>
 </a>
+
+<br/>
 
 > Feito com ❤️ por Rafael Ricciardi 👋🏽 Entre em contato!
 
